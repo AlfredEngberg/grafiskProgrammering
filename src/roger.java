@@ -4,12 +4,6 @@ import java.awt.image.DataBufferInt;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * This is a class
- * Created 2020-03-26
- *
- * @author Magnus Silverdal
- */
 public class roger {
     private int width;
     private int height;

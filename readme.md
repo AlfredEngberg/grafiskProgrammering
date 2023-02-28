@@ -11,3 +11,11 @@ Jag har fixat bilder och försökt förstå vad som alla saker gör. Det jag sku
 Log 2
 
 Jag har inte gjort någonting, behöver hjälp med typ förstå hur grafiken fungerar och hur jag lägger in bilder, hur man flyttar bilder, i princip allt om grafiken
+
+Log 3
+
+Jag har inte gjort nåt
+
+Log 4
+
+Jag har lagt in roger och gjort så att han kan röra sig!

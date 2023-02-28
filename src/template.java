@@ -1,10 +1,16 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
-public class template extends Canvas implements Runnable{
+public class template extends Canvas implements Runnable {
     private BufferStrategy bs;
 
     private boolean running = false;
@@ -18,13 +24,17 @@ public class template extends Canvas implements Runnable{
 
 
     public template() {
-        setSize(600,400);
+        try {
+            roger = ImageIO.read(new File("roger_png.png"));
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        setSize(600, 400);
         JFrame frame = new JFrame();
         frame.add(this);
         frame.addKeyListener(new MyKeyListener());
-        this.addMouseMotionListener(new MyMouseMotionListener());
-        this.addMouseListener(new MyMouseListener());
-        requestFocus();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
@@ -46,10 +56,11 @@ public class template extends Canvas implements Runnable{
     }
 
     public void draw(Graphics g) {
-        g.clearRect(0,0,getWidth(),getHeight());
+        g.clearRect(0, 0, getWidth(), getHeight());
+        g.drawImage(roger, rogerX, rogerY, roger.getWidth() / 4, roger.getHeight() / 4, null);
     }
-    private void update() {
-    }
+
+
 
     public static void main(String[] args) {
         template minGrafik = new template();
@@ -81,7 +92,7 @@ public class template extends Canvas implements Runnable{
             delta += (now - lastTime) / ns;
             lastTime = now;
 
-            while(delta >= 1) {
+            while (delta >= 1) {
                 // Uppdatera koordinaterna
                 update();
                 // Rita ut bilden med updaterad data
@@ -92,52 +103,49 @@ public class template extends Canvas implements Runnable{
         stop();
     }
 
-    public class MyMouseMotionListener implements MouseMotionListener {
+    private void update() {
+        rogerX += rogerVX;
+        rogerY += rogerVY;
 
-        @Override
-        public void mouseDragged(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseMoved(MouseEvent e) {
-        }
-    }
-
-    public class MyMouseListener implements MouseListener {
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-        }
     }
 
     public class MyKeyListener implements KeyListener {
 
         @Override
         public void keyTyped(KeyEvent e) {
+
         }
 
         @Override
         public void keyPressed(KeyEvent e) {
+            if (e.getKeyChar() == 'a') {
+                rogerVX = -3;
+            }
+            if (e.getKeyChar() == 'd') {
+                rogerVX = 3;
+            }
+            if (e.getKeyChar() == 'w') {
+                rogerVY = -3;
+            }
+            if (e.getKeyChar() == 's') {
+                rogerVY = 3;
+            }
         }
 
         @Override
         public void keyReleased(KeyEvent e) {
+            if (e.getKeyChar() == 'a') {
+                rogerVX = 0;
+            }
+            if (e.getKeyChar() == 'd') {
+                rogerVX = 0;
+            }
+            if (e.getKeyChar() == 'w') {
+                rogerVY = 0;
+            }
+            if (e.getKeyChar() == 's') {
+                rogerVY = 0;
+            }
         }
     }
 }
